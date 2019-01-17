@@ -266,7 +266,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 statusText.setText("File copied - " + result);
 
             }
-
+//
         }
 
         /*
