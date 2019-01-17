@@ -1,49 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a1thefull.wifidirect">
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
-
         android:icon="@drawable/ic_launcher"
-
         android:label="@string/app_name"
-
         android:theme="@android:style/Theme.Holo">
-
     <activity
-
         android:name=".WiFiDirectActivity"
-
         android:label="@string/app_name" android:launchMode="singleTask">
-
         <intent-filter>
-
             <action
-
                 android:name="android.intent.action.MAIN" />
-
             <category
-
                 android:name="android.intent.category.LAUNCHER" />
-
         </intent-filter>
-
     </activity>
+<service android:name=".FileTransferService"/>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
 
+        출처: http://gogorchg.tistory.com/entry/Android-FileProvider-androidosFileUriExposedException [항상 초심으로]
     </application>
 </manifest>

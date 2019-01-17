@@ -31,11 +31,13 @@ import android.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a1thefull.wifidirect.DeviceListFragment.DeviceActionListener;
 
@@ -75,6 +77,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 WifiP2pConfig config = new WifiP2pConfig();
                 config.deviceAddress = device.deviceAddress;
                 config.wps.setup = WpsInfo.PBC;
+                config.groupOwnerIntent = 15;
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
@@ -158,14 +161,18 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         // server. The file server is single threaded, single connection server
         // socket.
         if (info.groupFormed && info.isGroupOwner) {
+            Log.d("상태","1");
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text))
                     .execute();
+
         } else if (info.groupFormed) {
             // The other device acts as the client. In this case, we enable the
             // get file button.
             mContentView.findViewById(R.id.btn_start_client).setVisibility(View.VISIBLE);
             ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources()
                     .getString(R.string.client_text));
+            Log.d("상태","2");
+
         }
 
         // hide the connect button
@@ -257,10 +264,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         protected void onPostExecute(String result) {
             if (result != null) {
                 statusText.setText("File copied - " + result);
-                Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse("file://" + result), "image/*");
-                context.startActivity(intent);
+
             }
 
         }

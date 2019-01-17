@@ -23,7 +23,7 @@ import java.net.Socket;
 public class FileTransferService extends IntentService {
 
     private static final int SOCKET_TIMEOUT = 5000;
-    public static final String ACTION_SEND_FILE = "com.example.android.wifidirect.SEND_FILE";
+    public static final String ACTION_SEND_FILE = "com.example.a1thefull.wifidirect.SEND_FILE";
     public static final String EXTRAS_FILE_PATH = "file_url";
     public static final String EXTRAS_GROUP_OWNER_ADDRESS = "go_host";
     public static final String EXTRAS_GROUP_OWNER_PORT = "go_port";
@@ -44,17 +44,16 @@ public class FileTransferService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         Context context = getApplicationContext();
+        Log.d("이거되나","된다");
         if (intent.getAction().equals(ACTION_SEND_FILE)) {
             String fileUri = intent.getExtras().getString(EXTRAS_FILE_PATH);
             String host = intent.getExtras().getString(EXTRAS_GROUP_OWNER_ADDRESS);
             Socket socket = new Socket();
             int port = intent.getExtras().getInt(EXTRAS_GROUP_OWNER_PORT);
-
             try {
                 Log.d(WiFiDirectActivity.TAG, "Opening client socket - ");
                 socket.bind(null);
                 socket.connect((new InetSocketAddress(host, port)), SOCKET_TIMEOUT);
-
                 Log.d(WiFiDirectActivity.TAG, "Client socket - " + socket.isConnected());
                 OutputStream stream = socket.getOutputStream();
                 ContentResolver cr = context.getContentResolver();
@@ -80,7 +79,9 @@ public class FileTransferService extends IntentService {
                     }
                 }
             }
-
         }
+
+
+
     }
 }
