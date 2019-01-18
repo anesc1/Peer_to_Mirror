@@ -23,6 +23,8 @@
                 android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
+        <activity android:name=".MainServer"/>
+        <activity android:name=".MainClint"/>
 <service android:name=".FileTransferService"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -35,6 +37,5 @@
         </provider>
 
 
-        출처: http://gogorchg.tistory.com/entry/Android-FileProvider-androidosFileUriExposedException [항상 초심으로]
     </application>
 </manifest>
